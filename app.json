@@ -1,0 +1,12 @@
+{
+  "name": "RanApp",
+  "displayName": "RanApp",
+  "expo": {
+    "name": "RanApp",
+    "slug": "RanApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
