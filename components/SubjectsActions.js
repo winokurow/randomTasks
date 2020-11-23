@@ -1,6 +1,6 @@
 export const addSubject = subjectsIndex => (
     {
-      type: 'SELECT_SUBJECT',
+      type: 'ADD_SUBJECT',
       payload: subjectsIndex,
     }
   );

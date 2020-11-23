@@ -1,57 +1,59 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { StyleSheet, Text, View, TextInput, ImageBackground, TouchableOpacity, Button, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import { addSubject } from './SubjectsActions';
+import Task from './Task'
 
 
-class Subjects extends React.Component {
-  render() {
-    return (
-      <ImageBackground source={{ uri: 'https://wallpapertag.com/wallpaper/full/3/4/d/121586-new-red-gradient-background-2560x1600-for-phone.jpg' }} style={styles.container}>
-        <Text style={{ marginTop: '10%', fontSize: 16, color: 'white' }}>Tasks:</Text>
-        <View style={styles.textInputContainer}>
-          <TextInput
-            style={styles.textInput}
-            multiline={false}
-            placeholder={'Task'}
-            placeholderTextColor="white"
-          />
-          <TouchableOpacity>
-            <Icon name="plus" size={30} color="#900" style={{ marginLeft: 15 }} />
-          </TouchableOpacity>
-        </View>
-          {
-            this.props.subjects.all_subjects.map((subject, index) => (
-              
-              <Button
-                key={ subject }
-                title={ `Add ${ subject }` }
-                onPress={() =>
-                  this.props.addSubject(index)
-                }
-              />
-            ))
-          }
-  
-          <Button
-            title="Back to home"
-            onPress={() =>
-              this.props.navigation.navigate('Home')
-            }
-          />
-      </ImageBackground>
-    );
+const Subjects = () => {
+  const [value, setValue] = useState('')
+  let tasks = useSelector(state => state.subjects.all_subjects)
+  console.log(tasks)
+  console.log(Array.isArray(tasks))
+  const dispatch = useDispatch()
+
+  const handleAddTask = () => {
+    if (value.length > 0) {
+      dispatch(addSubject(value))
+      setValue('')
+    }
   }
+
+  return (
+    <ImageBackground source={{ uri: 'https://wallpapertag.com/wallpaper/full/3/4/d/121586-new-red-gradient-background-2560x1600-for-phone.jpg' }} style={styles.container}>
+      <Text style={{ marginTop: '10%', fontSize: 16, color: 'white' }}>Tasks:</Text>
+      <View style={styles.textInputContainer}>
+        <TextInput
+          style={styles.textInput}
+          multiline={false}
+          placeholder={'Task'}
+          onChangeText={(value) => setValue(value)}
+          placeholderTextColor="white"
+        />
+        <TouchableOpacity onPress={() => handleAddTask()}>
+          <Icon name="plus" size={30} color="#900" style={{ marginLeft: 15 }} />
+        </TouchableOpacity>
+      </View>
+        <ScrollView style={{width: '100%'}}>
+          {tasks.map((task, index) => (
+              <Task
+                text={task}
+                key={index}
+              />
+            )) 
+        }
+        </ScrollView>
+        <Button
+          title="Back to home"
+          onPress={() =>
+            this.props.navigation.navigate('Home')
+          }
+        />
+    </ImageBackground>
+  )
 }
- 
-//...
- 
-const mapStateToProps = (state) => {
-  const { subjects } = state
-  return { subjects }
-};
-
-
+export default Subjects
 
 const styles = StyleSheet.create({
   container: {
@@ -89,6 +91,3 @@ const styles = StyleSheet.create({
     paddingBottom: 5
   }
 });
-
-
-export default connect(mapStateToProps, {addSubject})(Subjects);

@@ -20,17 +20,13 @@ const INITIAL_STATE = {
  
 const subjectsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-        case 'SELECT_SUBJECT':
+        case 'ADD_SUBJECT':
           
           // copy the state 
           const { current,  all_subjects,} = state;
      
-          //remove a subject from the all_subjects array
-           
-          const addedSubject = all_subjects.splice(action.payload, 1);
-     
           // put subject in current array
-          current.push(addedSubject);
+          all_subjects.push(action.payload);
      
           // update the redux state to reflect the change
           const newState = { current, all_subjects };
