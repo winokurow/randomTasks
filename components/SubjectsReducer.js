@@ -1,3 +1,4 @@
+import { LongPressGestureHandler } from 'react-native-gesture-handler';
 import { combineReducers } from 'redux';
  
 const INITIAL_STATE = {
@@ -19,24 +20,35 @@ const INITIAL_STATE = {
 };
  
 const subjectsReducer = (state = INITIAL_STATE, action) => {
+  // copy the state 
+  const { current,  all_subjects,} = state;
+  
   switch (action.type) {
-        case 'ADD_SUBJECT':
-          
-          // copy the state 
-          const { current,  all_subjects,} = state;
-     
-          // put subject in current array
-          all_subjects.push(action.payload);
-     
-          // update the redux state to reflect the change
-          const newState = { current, all_subjects };
-           
-          //return new state
-          return newState;
-     
-        default:
-          return state
-      }
+    
+    case 'DELETE_SUBJECT':
+
+      // delete element
+      all_subjects.splice(action.payload, 1);
+      // update the redux state to reflect the change
+      const newStateAfterDelete = { current, all_subjects };
+        
+      //return new state
+      return newStateAfterDelete;
+
+    case 'ADD_SUBJECT': 
+      // put subject in current array
+      const all_subjects_new = all_subjects.push(action.payload);
+  
+      // update the redux state to reflect the change
+      const newStateAfterAdd = { current, all_subjects };
+
+      //return new state
+      return newStateAfterAdd
+        
+
+    default:
+      return state
+  }
 };
  
 export default combineReducers({

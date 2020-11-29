@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { StyleSheet, Text, View, TextInput, ImageBackground, TouchableOpacity, Button, ScrollView } from 'react-native';
+import { Header } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Feather';
-import { addSubject } from './SubjectsActions';
+import { DrawerActions } from '@react-navigation/native'
+import { addSubject, deleteSubject } from './SubjectsActions';
 import Task from './Task'
-
+import { useNavigation } from '@react-navigation/native';
 
 const Subjects = () => {
   const [value, setValue] = useState('')
-  let tasks = useSelector(state => state.subjects.all_subjects)
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
+
+  let tasks = useSelector(state => state.subjects.all_subjects, shallowEqual)
+  const navigation = useNavigation();
+
   console.log(tasks)
   console.log(Array.isArray(tasks))
   const dispatch = useDispatch()
@@ -19,9 +26,19 @@ const Subjects = () => {
       setValue('')
     }
   }
-
+  const handleDeleteTask = (id) => {
+    let valueTemp = value
+    
+    console.log("delete" + id)
+    console.log(tasks)
+    dispatch(deleteSubject(id))
+    forceUpdate()
+  }
   return (
     <ImageBackground source={{ uri: 'https://wallpapertag.com/wallpaper/full/3/4/d/121586-new-red-gradient-background-2560x1600-for-phone.jpg' }} style={styles.container}>
+    <Header leftComponent={{ icon: 'menu', color: '#fff', onPress: () => navigation.dispatch(DrawerActions.toggleDrawer()), }}>
+    </Header>
+    
       <Text style={{ marginTop: '10%', fontSize: 16, color: 'white' }}>Tasks:</Text>
       <View style={styles.textInputContainer}>
         <TextInput
@@ -40,6 +57,7 @@ const Subjects = () => {
               <Task
                 text={task}
                 key={index}
+                delete={() => handleDeleteTask(index)}
               />
             )) 
         }
@@ -59,7 +77,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   textInput: {

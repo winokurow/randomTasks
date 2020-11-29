@@ -4,12 +4,6 @@ import Icon from 'react-native-vector-icons/Feather';
 
 const Task = (props) => (
     <View style={styles.taskWrapper}>
-        <Icon
-            name="square"
-            size={30}
-            color="#900"
-            style={{ marginLeft: 15 }}
-        />
         <Text style={styles.task}>{props.text}</Text>
         <Icon
             name="trash-2"
