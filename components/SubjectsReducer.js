@@ -3,20 +3,7 @@ import { combineReducers } from 'redux';
  
 const INITIAL_STATE = {
   current: [],
-  all_subjects: [
-    'Literature',
-    'Speech',
-    'Writing',
-    'Algebra',
-    'Geometry',
-    'Statistics',
-    'Chemisrty',
-    'Biology',
-    'Physics',
-    'Economics',
-    'Geography',
-    'History',
-  ],
+  all_subjects: [],
 };
  
 const subjectsReducer = (state = INITIAL_STATE, action) => {
@@ -41,7 +28,7 @@ const subjectsReducer = (state = INITIAL_STATE, action) => {
   
       // update the redux state to reflect the change
       const newStateAfterAdd = { current, all_subjects };
-
+      console.log(newStateAfterAdd)
       //return new state
       return newStateAfterAdd
         

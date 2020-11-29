@@ -4,7 +4,8 @@ import Icon from 'react-native-vector-icons/Feather';
 
 const Task = (props) => (
     <View style={styles.taskWrapper}>
-        <Text style={styles.task}>{props.text}</Text>
+        <Text style={styles.task}>{props.name}</Text>
+        <Text style={styles.task}>{props.weight}</Text>
         <Icon
             name="trash-2"
             size={30}

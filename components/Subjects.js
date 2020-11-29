@@ -9,26 +9,26 @@ import Task from './Task'
 import { useNavigation } from '@react-navigation/native';
 
 const Subjects = () => {
-  const [value, setValue] = useState('')
+  const [taskName, setTaskName] = useState('')
+  const [taskWeight, setTaskWeight] = useState('')
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
 
   let tasks = useSelector(state => state.subjects.all_subjects, shallowEqual)
   const navigation = useNavigation();
 
-  console.log(tasks)
-  console.log(Array.isArray(tasks))
   const dispatch = useDispatch()
 
   const handleAddTask = () => {
-    if (value.length > 0) {
-      dispatch(addSubject(value))
-      setValue('')
+    if ((taskName.length > 0) && (taskWeight.length > 0)) {
+      dispatch(addSubject({taskName:taskName, taskWeight: taskWeight}))
+      setTaskName('')
+      setTaskWeight('')
+      console.log(tasks)
+      console.log(tasks[0].name)
     }
   }
-  const handleDeleteTask = (id) => {
-    let valueTemp = value
-    
+  const handleDeleteTask = (id) => {    
     console.log("delete" + id)
     console.log(tasks)
     dispatch(deleteSubject(id))
@@ -44,8 +44,15 @@ const Subjects = () => {
         <TextInput
           style={styles.textInput}
           multiline={false}
-          placeholder={'Task'}
-          onChangeText={(value) => setValue(value)}
+          placeholder={'Name'}
+          onChangeText={(value) => setTaskName(value)}
+          placeholderTextColor="white"
+        />
+        <TextInput
+          style={styles.textInput}
+          multiline={false}
+          placeholder={'Weight'}
+          onChangeText={(value) => setTaskWeight(value)}
           placeholderTextColor="white"
         />
         <TouchableOpacity onPress={() => handleAddTask()}>
@@ -55,7 +62,8 @@ const Subjects = () => {
         <ScrollView style={{width: '100%'}}>
           {tasks.map((task, index) => (
               <Task
-                text={task}
+                name={task.taskName}
+                weight={task.taskWeight}
                 key={index}
                 delete={() => handleDeleteTask(index)}
               />
