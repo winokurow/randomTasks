@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import subjectsReducer from './components/SubjectsReducer';
 import Home from './components/Home';
 import Subjects from './components/Subjects';
+import Backup from './components/Backup';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -21,6 +22,7 @@ class App extends React.Component {
         <Drawer.Navigator>
           <Drawer.Screen name="Home" component={ Home } options={{ drawerLabel: 'Random subject' }} />
           <Drawer.Screen name="Subjects" component={ Subjects } options={{ drawerLabel: 'Manage subjects' }} />
+          <Drawer.Screen name="Backup" component={ Backup } options={{ drawerLabel: 'Backup' }} />
         </Drawer.Navigator>
       </NavigationContainer>
       </Provider>

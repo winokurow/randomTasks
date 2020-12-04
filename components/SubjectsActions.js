@@ -11,3 +11,10 @@ export const deleteSubject = subjectsIndex => (
     payload: subjectsIndex,
   }
 );
+
+export const importTasks = tasks => (
+  {
+    type: 'IMPORT_TASKS',
+    payload: tasks,
+  }
+);

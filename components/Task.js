@@ -20,13 +20,11 @@ export default Task
 
 const styles = StyleSheet.create({
     taskWrapper: {
-        marginTop: '5%',
         flexDirection: 'row',
         borderColor: '#FFFFFF',
         borderBottomWidth: 1.5,
         width: '100%',
-        alignItems: 'stretch',
-        minHeight: 40,
+        alignItems: 'stretch'
     },
     task: {
         paddingBottom: 20,
@@ -35,7 +33,6 @@ const styles = StyleSheet.create({
         borderColor: '#F0F0F0',
         borderBottomWidth: 1,
         fontSize: 17,
-        fontWeight: 'bold',
-        color: 'white',
+        fontWeight: 'bold'
     }
 })

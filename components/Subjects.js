@@ -21,39 +21,40 @@ const Subjects = () => {
 
   const handleAddTask = () => {
     if ((taskName.length > 0) && (taskWeight.length > 0)) {
-      dispatch(addSubject({taskName:taskName, taskWeight: taskWeight}))
+      dispatch(addSubject({taskName:taskName, taskWeight: parseInt(taskWeight)}))
       setTaskName('')
       setTaskWeight('')
-      console.log(tasks)
-      console.log(tasks[0].name)
     }
   }
   const handleDeleteTask = (id) => {    
-    console.log("delete" + id)
-    console.log(tasks)
     dispatch(deleteSubject(id))
     forceUpdate()
   }
   return (
-    <ImageBackground source={{ uri: 'https://wallpapertag.com/wallpaper/full/3/4/d/121586-new-red-gradient-background-2560x1600-for-phone.jpg' }} style={styles.container}>
+    <View style={styles.container}>
     <Header leftComponent={{ icon: 'menu', color: '#fff', onPress: () => navigation.dispatch(DrawerActions.toggleDrawer()), }}>
     </Header>
     
-      <Text style={{ marginTop: '10%', fontSize: 16, color: 'white' }}>Tasks:</Text>
+      <Text style={{ marginTop: '1%', fontSize: 25, color: 'black', fontWeight: 'bold' }}>Tasks:</Text>
       <View style={styles.textInputContainer}>
         <TextInput
+          autoCorrect={false} 
           style={styles.textInput}
           multiline={false}
           placeholder={'Name'}
           onChangeText={(value) => setTaskName(value)}
-          placeholderTextColor="white"
+          placeholderTextColor="grey"
+          value={taskName}
         />
         <TextInput
+          autoCorrect={false} 
           style={styles.textInput}
           multiline={false}
           placeholder={'Weight'}
           onChangeText={(value) => setTaskWeight(value)}
-          placeholderTextColor="white"
+          placeholderTextColor="grey"
+          keyboardType='numeric'
+          value={taskWeight}
         />
         <TouchableOpacity onPress={() => handleAddTask()}>
           <Icon name="plus" size={30} color="#900" style={{ marginLeft: 15 }} />
@@ -76,7 +77,7 @@ const Subjects = () => {
             this.props.navigation.navigate('Home')
           }
         />
-    </ImageBackground>
+    </View>
   )
 }
 export default Subjects
@@ -85,34 +86,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#a3bcc7cc7',
   },
   textInput: {
-    height: 20,
     flex: 1,
-    minHeight: '7%',
-    marginTop: '5%',
     fontSize: 25,
     fontWeight: 'bold',
-    color: 'white',
     paddingLeft: 10
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    color: "black"
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    color: '#333333'
   },
   textInputContainer: {
     flexDirection: 'row',
     alignItems: 'baseline',
-    borderColor: 'rgb(222,222,222)',
     borderBottomWidth: 1,
     paddingRight: 10,
-    paddingBottom: 5
+    marginTop: '1%'
   }
 });
