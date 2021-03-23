@@ -5,11 +5,14 @@ import { Header, Left } from 'react-native-elements';
 import { useNavigation, DrawerActions } from '@react-navigation/native'
 
 const  Home = () => {
+  console.log("loading home");
+  
+
   const [taskName, setTaskName] = useState('test')
   let tasks = useSelector(state => state.subjects.all_subjects, shallowEqual)
   const navigation = useNavigation();
 
-  const chooseTask = () => {    
+  const chooseTask = () => {
     // First, we loop the main dataset to count up the total weight. We're starting the counter at one because the upper boundary of Math.random() is exclusive.
     let total = 1;
     for (let i = 0; i < tasks.length; ++i) {
@@ -43,7 +46,6 @@ const  Home = () => {
   return (
     <View style={styles.container}>
       <Header leftComponent={{ icon: 'menu', color: '#fff', onPress: () => navigation.dispatch(DrawerActions.toggleDrawer()), }}></Header>
-           
       <Text style={styles.task}>{taskName}</Text>
       <Button onPress={chooseTask} title='Get Task' style={styles.button}/>
     </View>
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: '#a3bcc7cc7',
+    backgroundColor: '#a3bcc7',
   },
   task: {
       paddingBottom: 20,

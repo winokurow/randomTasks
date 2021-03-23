@@ -64,3 +64,6 @@ buck-out/
 web-build/
 .env
 components/aws.js
+
+/node_modules/*
+/android/*
